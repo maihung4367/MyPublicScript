@@ -1,40 +1,4 @@
 version: '3'
-services:
-  prod-fe-mobi8-admin:
-    build:
-      context: ./mobi-8-admin
-      dockerfile: Dockerfile
-    image: 'prod-fe-mobi8-admin'
-    container_name: prod-fe-mobi8-admin
-    ports:
-      - '3001:3000'
-        #volumes:
-        #- './mobi-8-admin:/app'
-    networks:
-      - net_local
-
-  prod-fe-mobi8-client:
-    build:
-      context: ./mobi-8-client
-      dockerfile: Dockerfile
-    image: 'prod-fe-mobi8-client'
-    container_name: prod-fe-mobi8-client
-    ports:
-      - '3002:3000'
-    networks:
-      - net_local
-
-  proxy-nginx:
-    image: nginx
-    container_name: proxy-nginx
-    ports:
-      - '443:443'
-      - '80:80'
-    volumes:
-      - './nginx-proxy/nginx.conf:/etc/nginx/conf.d/default.conf'
-      - './nginx-proxy/certs:/etc/nginx/certs'
-    networks:
-      - net_local    
   
 x-shared_django: &django
   build:
@@ -157,6 +121,42 @@ services:
       - WEB_CONSOLE=false
     networks:
       - net_local
+
+  prod-fe-mobi8-admin:
+    build:
+      context: ./mobi-8-admin
+      dockerfile: Dockerfile
+    image: 'prod-fe-mobi8-admin'
+    container_name: prod-fe-mobi8-admin
+    ports:
+      - '3001:3000'
+        #volumes:
+        #- './mobi-8-admin:/app'
+    networks:
+      - net_local
+
+  prod-fe-mobi8-client:
+    build:
+      context: ./mobi-8-client
+      dockerfile: Dockerfile
+    image: 'prod-fe-mobi8-client'
+    container_name: prod-fe-mobi8-client
+    ports:
+      - '3002:3000'
+    networks:
+      - net_local
+
+  proxy-nginx:
+    image: nginx
+    container_name: proxy-nginx
+    ports:
+      - '443:443'
+      - '80:80'
+    volumes:
+      - './nginx-proxy/nginx.conf:/etc/nginx/conf.d/default.conf'
+      - './nginx-proxy/certs:/etc/nginx/certs'
+    networks:
+      - net_local        
 
 
 networks:

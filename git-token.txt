@@ -1,0 +1,24 @@
+
+#Repo Mobi8_FE_Admin
+git clone -b dynamic-menu-with-router https://github.com/pvssoftware/mobi-8-admin.git
+TuanLove1
+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
+
+# Repo Mobi8_FE_Client
+git clone -b main https://github.com/pvssoftware/mobi-8-client.git
+maihung4367
+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
+
+# Repo Mobi8_Backend
+git clone -b develop https://github.com/pvssoftware/mobi8-backend
+maihung4367
+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
+
+
+# create staticfolder in app
+cd mobi8-backend/
+mkdir staticfiles
+chown -R 101:101 staticfiles
+
+##Check config in this folder
+/mobi8-backend/config

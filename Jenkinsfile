@@ -38,13 +38,13 @@ pipeline{
             }
         }
 
-    //stage: Pull Code
+    //stage: Notification the updated code
     stage('Notification the updated code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 git log -1 '
+                    sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 cd /home/dev-fe-pos-v2/posapp-fe && git log -1 '
                 }
-                echo "Code pulled successfully"
+                echo "Send Telegram notification successfully"
             }
         }
     

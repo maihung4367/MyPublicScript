@@ -53,7 +53,7 @@ pipeline{
         steps {
             script {
                 def gitLog = sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    return sh(script: 'ssh -o StrictHostKeyChecking=no root@103.168.51.238 "git --git-dir /home/dev-fe-pos-v2/posapp-fe log -1 --pretty=format:\'%h - %an%n%s%n%ci\'"', returnStdout: true).trim()
+                    return sh(script: 'ssh -o StrictHostKeyChecking=no root@103.168.51.238 "git --git-dir /home/dev-fe-pos-v2/posapp-fe/.git log -1 --pretty=format:\'%h - %an%n%s%n%ci\'"', returnStdout: true).trim()
                 }
 
                 // Extract the commit hash, author name, commit message, and commit date from the gitLog

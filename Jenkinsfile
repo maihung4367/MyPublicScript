@@ -49,12 +49,13 @@ pipeline{
     //        }
     //    }
     
-    stage('Notification the updated code') {           
+    stage('Notification the updated code') {
             steps {
                 script {
-                    // Get the latest commit information using 'git log -1' command
-                    def gitLog = sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()
-                    
+                    def gitLog = sshagent(credentials: ['LOGIN_dev-pos-server']) {
+                        return sh(script: 'ssh -o StrictHostKeyChecking=no root@103.168.51.238 "cd /home/dev-fe-pos-v2/posapp-fe && git log -1 --pretty=format:\'%h - %an%n%s%n%ci\'"', returnStdout: true).trim()
+                    }
+
                     // Extract the commit hash, author name, commit message, and commit date from the gitLog
                     def (commitHash, authorName, commitMessage, commitDate) = gitLog.split('\n', 4)
 
@@ -72,8 +73,9 @@ pipeline{
 
                     echo "Send Telegram notification successfully"
                 }
-            }         
+            }
         }
+
 
     // stage: Build Code
     stage('Build Code') {

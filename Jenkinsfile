@@ -50,31 +50,31 @@ pipeline{
     //    }
     
     stage('Notification the updated code') {
-            steps {
-                script {
-                    def gitLog = sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                        return sh(script: 'ssh -o StrictHostKeyChecking=no root@103.168.51.238 "cd /home/dev-fe-pos-v2/posapp-fe && git log -1 --pretty=format:\'%h - %an%n%s%n%ci\'"', returnStdout: true).trim()
-                    }
-
-                    // Extract the commit hash, author name, commit message, and commit date from the gitLog
-                    def (commitHash, authorName, commitMessage, commitDate) = gitLog.split('\n', 4)
-
-                    // Format the message to be sent via Telegram
-                    def message = "${header}\n${separator}\n"
-                    message += "<b>Latest Commit:</b>\n"
-                    message += "<b>Commit Hash:</b> ${commitHash}\n"
-                    message += "<b>Author:</b> ${authorName}\n"
-                    message += "<b>Commit Message:</b>\n${commitMessage}\n"
-                    message += "<b>Commit Date:</b> ${commitDate}\n"
-                    message += "${separator}\n${footer}"
-
-                    // Send the message to Telegram
-                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
-
-                    echo "Send Telegram notification successfully"
+        steps {
+            script {
+                def gitLog = sshagent(credentials: ['LOGIN_dev-pos-server']) {
+                    return sh(script: 'ssh -o StrictHostKeyChecking=no root@103.168.51.238 "git -C /home/dev-fe-pos-v2/posapp-fe log -1 --pretty=format:\'%h - %an%n%s%n%ci\'"', returnStdout: true).trim()
                 }
+
+                // Extract the commit hash, author name, commit message, and commit date from the gitLog
+                def (commitHash, authorName, commitMessage, commitDate) = gitLog.split('\n', 4)
+
+                // Format the message to be sent via Telegram
+                def message = "${header}\n${separator}\n"
+                message += "<b>Latest Commit:</b>\n"
+                message += "<b>Commit Hash:</b> ${commitHash}\n"
+                message += "<b>Author:</b> ${authorName}\n"
+                message += "<b>Commit Message:</b>\n${commitMessage}\n"
+                message += "<b>Commit Date:</b> ${commitDate}\n"
+                message += "${separator}\n${footer}"
+
+                // Send the message to Telegram
+                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
+
+                echo "Send Telegram notification successfully"
             }
         }
+    }
 
 
     // stage: Build Code

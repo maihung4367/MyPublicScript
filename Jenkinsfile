@@ -49,7 +49,7 @@ pipeline{
     //        }
     //    }
     
-    stage('Notification the updated code') {
+    stage('Notification the updated code') {           
             steps {
                 script {
                     // Get the latest commit information using 'git log -1' command
@@ -72,10 +72,10 @@ pipeline{
 
                     echo "Send Telegram notification successfully"
                 }
+            }         
         }
-    }
 
-    //stage: Build Code
+    // stage: Build Code
     stage('Build Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
@@ -98,7 +98,7 @@ pipeline{
                 }
             }
         
-        //if failure
+        // if failure
         failure {
             script {
                 def status = "\u274c Status : failed"               

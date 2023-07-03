@@ -50,27 +50,28 @@ pipeline{
     //    }
     
     stage('Notification the updated code') {
-    steps {
-        script {
-            // Get the latest commit information using 'git log -1' command
-            def gitLog = sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()
-            
-            // Extract the commit hash, author name, commit message, and commit date from the gitLog
-            def (commitHash, authorName, commitMessage, commitDate) = gitLog.split('\n', 4)
+            steps {
+                script {
+                    // Get the latest commit information using 'git log -1' command
+                    def gitLog = sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()
+                    
+                    // Extract the commit hash, author name, commit message, and commit date from the gitLog
+                    def (commitHash, authorName, commitMessage, commitDate) = gitLog.split('\n', 4)
 
-            // Format the message to be sent via Telegram
-            def message = "${header}\n${separator}\n"
-            message += "<b>Latest Commit:</b>\n"
-            message += "<b>Commit Hash:</b> ${commitHash}\n"
-            message += "<b>Author:</b> ${authorName}\n"
-            message += "<b>Commit Message:</b>\n${commitMessage}\n"
-            message += "<b>Commit Date:</b> ${commitDate}\n"
-            message += "${separator}\n${footer}"
+                    // Format the message to be sent via Telegram
+                    def message = "${header}\n${separator}\n"
+                    message += "<b>Latest Commit:</b>\n"
+                    message += "<b>Commit Hash:</b> ${commitHash}\n"
+                    message += "<b>Author:</b> ${authorName}\n"
+                    message += "<b>Commit Message:</b>\n${commitMessage}\n"
+                    message += "<b>Commit Date:</b> ${commitDate}\n"
+                    message += "${separator}\n${footer}"
 
-            // Send the message to Telegram
-            sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
+                    // Send the message to Telegram
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
 
-            echo "Send Telegram notification successfully"
+                    echo "Send Telegram notification successfully"
+                }
         }
     }
 

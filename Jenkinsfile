@@ -2,6 +2,14 @@
 pipeline{
    agent any
    
+    def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
+    def separator = "➖➖➖➖➖➖➖➖➖➖"
+    def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
+    def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+    def chatId = '-944433564'
+        
+
+
    //stage: Login to Server
    stages{
       stage('Login to Server'){
@@ -39,13 +47,6 @@ pipeline{
    }    
    // Notification to Telegram
     post {
-
-        def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
-        def separator = "➖➖➖➖➖➖➖➖➖➖"
-        def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
-        def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
-        def chatId = '-944433564'
-        
         // if success
         success {
             script {

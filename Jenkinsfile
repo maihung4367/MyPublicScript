@@ -34,38 +34,45 @@ pipeline{
                 echo "Code build successfully"
             }
         }
-   
-       
+        
        
    }    
    // Notification to Telegram
     post {
+
+        def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
+        def separator = "➖➖➖➖➖➖➖➖➖➖"
+        def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
+        def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+        def chatId = '-944433564'
+        
         // if success
         success {
             script {
-                def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
-                def separator = "➖➖➖➖➖➖➖➖➖➖"
+                //def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
+                //def separator = "➖➖➖➖➖➖➖➖➖➖"
                 def status = "\u2705 Status: success"
-                def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
+                //def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
 
                 def message = "${header}\n${separator}\n${status}\n${separator}\n${footer}"
-                def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
-                def chatId = '-944433564'
+                //def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+                //def chatId = '-944433564'
 
                 sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 }
             }
+        
         //if failure
         failure {
             script {
-                def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
-                def separator = "➖➖➖➖➖➖➖➖➖➖"
+                //def header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
+                //def separator = "➖➖➖➖➖➖➖➖➖➖"
                 def status = "\u274c Status : failed"
-                def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
+                //def footer = "\u2139 Detail logs: ${env.BUILD_URL}"
                 
                 def message = "${header}\n${separator}\n${status}\n${separator}\n${footer}"
-                def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
-                def chatId = '-944433564'
+                //def telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+                //def chatId = '-944433564'
                 
                 sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 

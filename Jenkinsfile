@@ -14,20 +14,10 @@ pipeline{
         separator = "➖➖➖➖➖➖➖➖➖➖"
         footer = "\u2139 Detail logs: ${env.BUILD_URL}"
     }
-
-
-    //stage: Check new commit
-    stages{
-        stage('Check new commit'){
-            steps {
-                echo "Check new commit..." }
-            }
-    }
-
-
+   
    //stage: Login to Server
-    //stages{
-    stage('Login to Server'){
+    stages{
+        stage('Login to Server'){
             steps {
                 echo "Logging into the server..."
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {

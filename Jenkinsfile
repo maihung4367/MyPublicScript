@@ -28,14 +28,19 @@ pipeline {
             steps {
                 script {
                     def status = "\u2705 Status: success"
-                    def message = "${header}\n${separator}\n${status}\nLatest Git Commit:\n\n${env.GIT_LOGS}\n${separator}\n${footer}"
+
+                    def message = "🔉Some new updating code on github...\n\n" +
+                                       "${separator}\n" +
+                                       "🆔 ${env.JOB_NAME}\n" +
+                                       "🔗 ${separator}\n" +
+                                       "${env.GIT_LOGS }\n" +
+                                       "${separator}\n" +
+                                       "🔁 These updating code will be automatically build by CI pipeline afterwards..."
+
                     sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 }
             }
         }    
-
-
-
 
         // stage 'Login to Server'
         stage('Login to Server') {

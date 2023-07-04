@@ -14,13 +14,6 @@ pipeline {
         // API Telegram Token
         telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
         chatId = '-944433564'
-
-
-         withCredentials([string(credentialsId: 'TOKEN-Telegram-PVS_BOT', variable: 'TELEGRAM_BOT_TOKEN')]) {
-                // Your code block here
-                sh 'echo $TELEGRAM_BOT_TOKEN'
-                echo "${TELEGRAM_BOT_TOKEN}"
-            }
    
         // Template Telegram message
         header = "\ud83d\udd01 <b>CI/CD PIPELINE PROCESS v1.1</b>\n\ud83c\udd94 <code>${env.JOB_NAME}</code>"

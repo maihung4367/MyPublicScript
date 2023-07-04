@@ -12,10 +12,7 @@ pipeline {
     // Environment
     environment {
         // API Telegram Token
-        // telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
-
-        withCredentials([string(credentialsId: 'TOKEN-Telegram-PVS_BOT', variable: 'env.TELEGRAM_BOT_TOKEN')]) 
-        telegramBotToken = env.TELEGRAM_BOT_TOKEN
+        telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
         chatId = '-944433564'
 
         // Template Telegram message

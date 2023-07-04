@@ -8,8 +8,8 @@ pipeline {
         chatId = '-944433564'
 
         // Template Telegram message
-        header = "🔁 <b>CI/CD PIPELINE PROCESS v1.1</b>\n🆔 <code>${env.JOB_NAME}</code>"
-        separator = "➖➖➖➖➖➖➖➖➖➖"
+        header = "\ud83d\udd01 <b>CI/CD PIPELINE PROCESS v1.1</b>\n\ud83c\udd94 <code>${env.JOB_NAME}</code>"
+        separator = "\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796"
         footer = "\u2139 Detail logs: ${env.BUILD_URL}"
     }
 
@@ -36,16 +36,16 @@ pipeline {
                 script {
                     def status = "\u2705 Status: success"
 
-                    def message = "🔉<code>Some new updating code on github...</code>\n\n" +
+                    def message = "\ud83d\udd09 <code>Some new updating code on github...</code>\n\n" +
                                        "${separator}\n" +
-                                       "🆔 <code>${env.JOB_NAME}</code>\n" +
+                                       "\ud83c\udd94 <code>${env.JOB_NAME}</code>\n" +
                                        "${separator}\n" +
-                                       "🔗 <code>${env.GIT_repositoryLink}</code>\n" +
+                                       "\ud83d\udd17 <code>${env.GIT_repositoryLink}</code>\n" +
                                        " <code>${env.GIT_commitPerson}</code>\n" +
                                        " <code>${env.GIT_commitTime}</code>\n" +
                                        " <code>${env.GIT_commitMessage}</code>\n" +
                                        "${separator}\n" +
-                                       "🔁 These updating code will be automatically build by CI/CD pipeline afterwards..."
+                                       "\ud83d\udd01 These updating code will be automatically build by CI/CD pipeline afterwards..."
 
                     sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 }

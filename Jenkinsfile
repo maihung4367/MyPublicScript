@@ -14,6 +14,30 @@ pipeline {
     }
 
     stages {
+        
+        stage('Get Latest Git Commit Logs') {
+            steps {
+                script {
+                    def gitLogs = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %ar : %s"')
+                    env.GIT_LOGS = gitLogs.trim()
+                }
+            }
+        }
+
+        stage('Send Git Logs to Telegram') {
+            steps {
+                script {
+                    def status = "\u2705 Status: success"
+                    def message = "${header}\n${separator}\n${status}\nLatest Git Commit:\n\n${env.GIT_LOGS}\n${separator}\n${footer}"
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
+                }
+            }
+        }    
+
+
+
+
+        // stage 'Login to Server'
         stage('Login to Server') {
             steps {
                 echo "Logging into the server..."
@@ -24,6 +48,7 @@ pipeline {
             }
         }
 
+        // stage: 'Pull code'
         stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
@@ -33,6 +58,7 @@ pipeline {
             }
         }
 
+        // stage: 'Build Code'
         stage('Build Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {

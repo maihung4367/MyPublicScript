@@ -85,7 +85,7 @@ pipeline {
         stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    sh 'ssh  -o StrictHostKeyChecking=no  ${serverUser}@${serverIP} git -C ${codeDirectory} pull origin'
+                    sh 'ssh  -o StrictHostKeyChecking=no  ${serverUser}@${serverIP} git --git-dir ${codeDirectory}/.git pull origin'
                 }
                 echo "Code pulled successfully"
             }

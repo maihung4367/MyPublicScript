@@ -76,6 +76,7 @@ pipeline{
                 def message = "${header}\n${separator}\n${status}\n${separator}\n${footer}"               
                 sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 
+                }
             }
         }
     }

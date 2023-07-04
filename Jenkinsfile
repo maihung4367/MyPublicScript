@@ -17,8 +17,8 @@ pipeline{
 
 
    //stage: Login to Server
-   stages{
-        stage('Login to Server'){
+   //stages{
+    stage('Login to Server'){
             steps {
                 echo "Logging into the server..."
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
@@ -26,7 +26,7 @@ pipeline{
                 }
                 echo "Success login"
         }
-    }
+    //}
 
     //stage: Pull Code
     stage('Pull Code') {

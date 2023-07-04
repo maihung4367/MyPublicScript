@@ -54,7 +54,10 @@ pipeline{
                 echo "Code build successfully"
             }
         }
-    }      
+    }
+}      
+
+
     
    // Notification to Telegram
     post {

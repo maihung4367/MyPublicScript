@@ -16,8 +16,7 @@ pipeline {
     environment {
         // API Telegram Token
         // telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
-        telegramBotToken = credentials(TOKEN-Telegram-PVS_BOT) ?: params.TELEGRAM_BOT_TOKEN ?: ''
-        telegramBotToken = credentials('TOKEN-Telegram-PVS_BOT') ?: params.TELEGRAM_BOT_TOKEN ?: ''
+        telegramBotToken = credentials('TOKEN-Telegram-PVS_BOT') ?: params.TELEGRAM_BOT_TOKEN ?: ""
         chatId = '-944433564'
 
         // Template Telegram message

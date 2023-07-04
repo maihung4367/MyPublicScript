@@ -18,8 +18,8 @@ pipeline {
         stage('Get Latest Git Commit Logs') {
             steps {
                 script {
-                    def repositoryLink = sh(returnStdout: true, script: 'git config --get remote.origin.url"')
-                    env.GIT_repositoryLink = repositoryLink.replaceFirst("^https?://", "")
+                    def repositoryLink = sh(returnStdout: true, script: 'git config --get remote.origin.url')
+                    env.GIT_repositoryLink = repositoryLink.trim()
                     def commitPerson = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"')
                     env.GIT_commitPerson = commitPerson.trim()
                     def commitTime = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ci"')

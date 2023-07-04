@@ -15,6 +15,10 @@ pipeline{
         footer = "\u2139 Detail logs: ${env.BUILD_URL}"
     }
 
+
+    stage('Notification the updated code') {
+        steps {sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
+    }
     // stage: Login to Server
    stages{
       stage('Login to Server'){

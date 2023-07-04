@@ -16,15 +16,16 @@ pipeline{
     }
 
 
-    stage('Notification the updated code') {
-        steps {
-            script { sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
-        }
-           
-    }
     // stage: Login to Server
    stages{
-      stage('Login to Server'){
+
+        stage('Notification the updated code') {
+        steps {
+            script { sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
+            }
+        }
+
+        stage('Login to Server'){
             steps {
                 echo "Logging into the server..."
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {

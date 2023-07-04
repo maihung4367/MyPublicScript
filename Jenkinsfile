@@ -20,6 +20,10 @@ pipeline {
                 script {
                     def commitPerson = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"')
                     env.GIT_commitPerson = commitPerson.trim()
+                    def commitTime = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ci"')
+                    env.GIT_commitTime = commitTime.strim()
+                    def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%s"')
+                    env.GIT_commitMessage = commitMessage.strim()
                 }
             }
         }
@@ -35,6 +39,8 @@ pipeline {
                                        "${separator}\n" +
                                        "🔗 \n" +
                                        "${env.GIT_commitPerson}\n" +
+                                       "${env.GIT_commitTime}\n" +
+                                       "${env.GIT_commitMessage}\n" +
                                        "${separator}\n" +
                                        "🔁 These updating code will be automatically build by CI/CD pipeline afterwards..."
 

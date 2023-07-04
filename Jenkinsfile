@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def commitPerson = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"')
-                    //env.GIT_LOGS = commitPerson.trim()
+                    env.GIT_commitPerson = commitPerson.trim()
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                                        "🆔 ${env.JOB_NAME}\n" +
                                        "${separator}\n" +
                                        "🔗 \n" +
-                                       "${commitPerson.trim()}\n" +
+                                       "${env.GIT_commitPerson}\n" +
                                        "${separator}\n" +
                                        "🔁 These updating code will be automatically build by CI/CD pipeline afterwards..."
 

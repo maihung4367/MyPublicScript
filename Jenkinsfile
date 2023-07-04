@@ -17,7 +17,10 @@ pipeline{
 
 
     stage('Notification the updated code') {
-        steps {sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
+        steps {
+            script { sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
+        }
+           
     }
     // stage: Login to Server
    stages{

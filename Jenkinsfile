@@ -36,14 +36,14 @@ pipeline {
                 script {
                     def status = "\u2705 Status: success"
 
-                    def message = "🔉Some new updating code on github...\n\n" +
+                    def message = "🔉<code>Some new updating code on github...</code>\n\n" +
                                        "${separator}\n" +
-                                       "🆔 ${env.JOB_NAME}\n" +
+                                       "🆔 <code>${env.JOB_NAME}</code>\n" +
                                        "${separator}\n" +
-                                       "🔗${env.GIT_repositoryLink}\n" +
-                                       "${env.GIT_commitPerson}\n" +
-                                       "${env.GIT_commitTime}\n" +
-                                       "${env.GIT_commitMessage}\n" +
+                                       "🔗 <code>${env.GIT_repositoryLink}</code>\n" +
+                                       " <code>${env.GIT_commitPerson}</code>\n" +
+                                       " <code>${env.GIT_commitTime}</code>\n" +
+                                       " <code>${env.GIT_commitMessage}</code>\n" +
                                        "${separator}\n" +
                                        "🔁 These updating code will be automatically build by CI/CD pipeline afterwards..."
 

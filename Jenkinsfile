@@ -16,15 +16,17 @@ pipeline{
     }
 
 
-    // stage: Login to Server
-   stages{
+    // Stages
+    stages {
 
+        // stage: Notification the updated code
         stage('Notification the updated code') {
         steps {
             script { sh(script: "git log -1 --pretty=format:'%h - %an%n%s%n%ci'", returnStdout: true).trim()}
             }
         }
 
+        // stage: Login to Server
         stage('Login to Server'){
             steps {
                 echo "Logging into the server..."
@@ -34,7 +36,7 @@ pipeline{
                 echo "Success login"
             }
         
-          //stage: Pull Code
+        //stage: Pull Code
         stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
@@ -46,7 +48,7 @@ pipeline{
 
 
         // stage: Build Code
-         tage('Build Code') {
+        stage('Build Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
                     sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 docker-compose -f /home/dev-fe-pos-v2/docker-compose.yml up -d --build dev-fe-pos-v2'
@@ -55,9 +57,6 @@ pipeline{
             }
         }
     }
-}      
-
-
     
    // Notification to Telegram
     post {

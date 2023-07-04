@@ -33,10 +33,9 @@ pipeline{
                 }
                 echo "Success login"
             }
-        }
-   
-   //stage: Pull Code
-    stage('Pull Code') {
+        
+          //stage: Pull Code
+        stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
                     sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 ls /home/dev-fe-pos-v2/posapp-fe'
@@ -45,19 +44,9 @@ pipeline{
             }
         }
 
-    //stage: Notification the updated code
-    
-    //stage('Notification the updated code') {
-    //        steps {
-    //            sshagent(credentials: ['LOGIN_dev-pos-server']) {
-    //                sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 cd /home/dev-fe-pos-v2/posapp-fe && git log -1 '
-    //            }
-    //            echo "Send Telegram notification successfully"
-    //        }
-    //    }
 
-    // stage: Build Code
-    stage('Build Code') {
+        // stage: Build Code
+         tage('Build Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
                     sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 docker-compose -f /home/dev-fe-pos-v2/docker-compose.yml up -d --build dev-fe-pos-v2'
@@ -65,9 +54,8 @@ pipeline{
                 echo "Code build successfully"
             }
         }
-        
-       
-   }    
+    }      
+    
    // Notification to Telegram
     post {
         // if success

@@ -18,8 +18,8 @@ pipeline {
         stage('Get Latest Git Commit Logs') {
             steps {
                 script {
-                    def gitLogs = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %ar : %s"')
-                    env.GIT_LOGS = gitLogs.trim()
+                    def commitPerson = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"')
+                    //env.GIT_LOGS = commitPerson.trim()
                 }
             }
         }
@@ -32,10 +32,11 @@ pipeline {
                     def message = "🔉Some new updating code on github...\n\n" +
                                        "${separator}\n" +
                                        "🆔 ${env.JOB_NAME}\n" +
-                                       "🔗 ${separator}\n" +
-                                       "${env.GIT_LOGS }\n" +
                                        "${separator}\n" +
-                                       "🔁 These updating code will be automatically build by CI pipeline afterwards..."
+                                       "🔗 \n" +
+                                       "${commitPerson.trim()}\n" +
+                                       "${separator}\n" +
+                                       "🔁 These updating code will be automatically build by CI/CD pipeline afterwards..."
 
                     sh "curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\":\"${chatId}\", \"text\":\"${message}\", \"parse_mode\":\"HTML\"}' https://api.telegram.org/bot${telegramBotToken}/sendMessage"
                 }

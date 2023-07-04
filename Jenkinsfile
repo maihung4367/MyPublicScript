@@ -15,15 +15,13 @@ pipeline {
         telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
         chatId = '-944433564'
 
-           // Basic example
-        withCredentials([string(credentialsId: 'TOKEN-Telegram-PVS_BOT', variable: 'env.TELEGRAM_BOT_TOKEN')]) 
 
-            {
-            //available as an env variable, but will be masked if you try to print it out any which way
-            sh 'echo $env.TELEGRAM_BOT_TOKEN'
-            echo "${env.TELEGRAM_BOT_TOKEN}"
+         withCredentials([string(credentialsId: 'TOKEN-Telegram-PVS_BOT', variable: 'TELEGRAM_BOT_TOKEN')]) {
+                // Your code block here
+                sh 'echo $TELEGRAM_BOT_TOKEN'
+                echo "${TELEGRAM_BOT_TOKEN}"
             }
-
+   
         // Template Telegram message
         header = "\ud83d\udd01 <b>CI/CD PIPELINE PROCESS v1.1</b>\n\ud83c\udd94 <code>${env.JOB_NAME}</code>"
         separator = "\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796"

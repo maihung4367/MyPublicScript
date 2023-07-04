@@ -11,8 +11,13 @@ pipeline {
         header = "\ud83d\udd01 <b>CI/CD PIPELINE PROCESS v1.1</b>\n\ud83c\udd94 <code>${env.JOB_NAME}</code>"
         separator = "\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796\u2796"
         footer = "\u2139 Detail logs: ${env.BUILD_URL}"
+
+        // Server credentials
+        serverIP = '103.168.51.238'
+        serverUser = 'root'
     }
 
+    // Simple CI/CD Stages
     stages {
         // stage 'Get Latest Git Commit Logs'
         stage('Get Latest Git Commit Logs') {
@@ -57,7 +62,7 @@ pipeline {
             steps {
                 echo "Logging into the server..."
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    sh 'ssh -o StrictHostKeyChecking=no root@103.168.51.238'
+                    sh 'ssh -o StrictHostKeyChecking=no ${serverUser}@${serverIP}'
                 }
                 echo "Success login"
             }
@@ -67,7 +72,7 @@ pipeline {
         stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 ls /home/dev-fe-pos-v2/posapp-fe'
+                    sh 'ssh  -o StrictHostKeyChecking=no  ${serverUser}@${serverIP} ls /home/dev-fe-pos-v2/posapp-fe'
                 }
                 echo "Code pulled successfully"
             }
@@ -77,7 +82,7 @@ pipeline {
         stage('Build Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
-                    sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 docker-compose -f /home/dev-fe-pos-v2/docker-compose.yml up -d --build dev-fe-pos-v2'
+                    sh 'ssh  -o StrictHostKeyChecking=no  ${serverUser}@${serverIP} docker-compose -f /home/dev-fe-pos-v2/docker-compose.yml up -d --build dev-fe-pos-v2'
                 }
                 echo "Code build successfully"
             }

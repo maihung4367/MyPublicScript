@@ -41,9 +41,9 @@ pipeline {
                                        "\ud83c\udd94 <code>${env.JOB_NAME}</code>\n" +
                                        "${separator}\n" +
                                        "\ud83d\udd17 <code>${env.GIT_repositoryLink}</code>\n" +
-                                       " <code>${env.GIT_commitPerson}</code>\n" +
-                                       " <code>${env.GIT_commitTime}</code>\n" +
-                                       " <code>${env.GIT_commitMessage}</code>\n" +
+                                       "\ud83e\uddd1 <code>${env.GIT_commitPerson}</code>\n" +
+                                       "\ud83d\udcc5 <code>${env.GIT_commitTime}</code>\n" +
+                                       "\ud83c\udd95 <code>${env.GIT_commitMessage}</code>\n" +
                                        "${separator}\n" +
                                        "\ud83d\udd01 These updating code will be automatically build by CI/CD pipeline afterwards..."
 

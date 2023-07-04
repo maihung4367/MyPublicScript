@@ -26,8 +26,10 @@ pipeline{
                 }
                 echo "Success login"
         }
-        //stage: Pull Code
-        stage('Pull Code') {
+    }
+
+    //stage: Pull Code
+    stage('Pull Code') {
             steps {
                 sshagent(credentials: ['LOGIN_dev-pos-server']) {
                     sh 'ssh  -o StrictHostKeyChecking=no  root@103.168.51.238 ls /home/dev-fe-pos-v2/posapp-fe'
@@ -35,7 +37,6 @@ pipeline{
                 echo "Code pulled successfully"
             }
         }
-    }
     // stage: Build Code
     stage('Build Code') {
             steps {

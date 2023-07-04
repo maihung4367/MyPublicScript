@@ -1,10 +1,22 @@
+/*  
+Author: Your Name
+Date: 2023-07-04
+Project: dev-fe-pos-v2
+Description: This Jenkinsfile automates the CI/CD process for the project.
+*/
+
 pipeline {
     agent any
+
+    parameters {
+        string(name: 'TELEGRAM_BOT_TOKEN', defaultValue: '', description: 'The API token for the Telegram bot')
+    }
     
     // Environment
     environment {
         // API Telegram Token
-        telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+        // telegramBotToken = '1481210476:AAGOM-RnZM6zOJ5hNBzffqPKE1YY-n6wGDk'
+        telegramBotToken = credentials('telegramBotToken') ?: params.TELEGRAM_BOT_TOKEN ?: ''
         chatId = '-944433564'
 
         // Template Telegram message

@@ -14,10 +14,12 @@ pipeline {
     }
 
     stages {
-        
+        // stage 'Get Latest Git Commit Logs'
         stage('Get Latest Git Commit Logs') {
             steps {
                 script {
+                    def repositoryLink = sh(returnStdout: true, script: 'git config --get remote.origin.url"')
+                    env.GIT_repositoryLink = repositoryLink.trim()
                     def commitPerson = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%an"')
                     env.GIT_commitPerson = commitPerson.trim()
                     def commitTime = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%ci"')
@@ -28,6 +30,7 @@ pipeline {
             }
         }
 
+        // stage 'Send Git Logs to Telegram'
         stage('Send Git Logs to Telegram') {
             steps {
                 script {
@@ -37,7 +40,7 @@ pipeline {
                                        "${separator}\n" +
                                        "🆔 ${env.JOB_NAME}\n" +
                                        "${separator}\n" +
-                                       "🔗 \n" +
+                                       "🔗${env.GIT_repositoryLink}\n" +
                                        "${env.GIT_commitPerson}\n" +
                                        "${env.GIT_commitTime}\n" +
                                        "${env.GIT_commitMessage}\n" +

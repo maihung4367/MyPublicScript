@@ -1,6 +1,7 @@
 /*  
-Author: Your Name
+Author: Nguyen Mai Hung
 Date: 2023-07-04
+Verison: 1.1
 Project: dev-fe-pos-v2
 Description: This Jenkinsfile automates the CI/CD process for the project.
 */
